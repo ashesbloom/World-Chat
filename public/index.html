@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RetroChat Terminal</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=VT323&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/emoji-mart@latest/css/emoji-mart.css"
+    />
+    <link rel="stylesheet" href="./styling.css" />
+    <script src="https://cdn.jsdelivr.net/npm/emoji-mart@latest/dist/browser.js"></script>
+  </head>
+  <body>
+    <!-- <div class="noise"></div> -->
+    <div class="gradient-bg"></div>
+    <div class="custom-cursor"><div class="cursor-dot"></div></div>
+    <div class="terminal">
+      <div class="terminal-header">RetroChat Terminal</div>
+      <div class="chat-messages">
+        <div class="message received">
+          <div class="message-content">Welcome to RetroChat Terminal!</div>
+        </div>
+        <div class="message sent">
+          <div class="message-content">Hello, RetroChat!</div>
+        </div>
+      </div>
+      <div class="chat-input">
+        <button id="emoji-button" aria-label="Open emoji picker">😊</button>
+        <button id="gif-button" aria-label="Open GIF picker">GIF</button>
+        <input
+          type="text"
+          placeholder="Type your message..."
+          class="input"
+          aria-label="Chat input"
+        />
+        <button id="send-button" aria-label="Send message">Send</button>
+      </div>
+    </div>
+    <div id="emoji-picker" style="display: none"></div>
+    <div id="gif-picker" style="display: none">
+      <input type="text" id="gif-search" placeholder="Search GIFs..." />
+      <div id="gif-results"></div>
+    </div>
+    <script>
+      const cursor = document.querySelector(".custom-cursor");
+      document.addEventListener("mousemove", (e) => {
+        cursor.style.left = e.clientX + "px";
+        cursor.style.top = e.clientY + "px";
+
+        const noise = document.querySelector(".noise");
+        // Calculate mouse position relative to the center of the window
+        const mouseX = e.clientX / window.innerWidth;
+        const mouseY = e.clientY / window.innerHeight;
+        noise.style.backgroundPosition = `${mouseX * 100}% ${mouseY * 100}%`;
+      });
+
+      document.addEventListener("click", () => {
+        cursor.style.transform = "scale(0.8)";
+        setTimeout(() => {
+          cursor.style.transform = "scale(1)";
+        }, 100);
+      });
+
+      document.getElementById("gif-button").addEventListener("click", () => {
+        const gifPicker = document.getElementById("gif-picker");
+        gifPicker.style.display =
+          gifPicker.style.display === "none" ? "block" : "none";
+      });
+
+      document.getElementById("gif-search").addEventListener("input", (e) => {
+        const query = e.target.value;
+        // Implement GIF search API call and update #gif-results with GIFs
+      });
+
+      const chatMessages = document.querySelector(".chat-messages");
+      const input = document.querySelector(".chat-input input");
+      const sendButton = document.querySelector(".chat-input button");
+
+      function addMessage(content, isSent) {
+        const message = document.createElement("div");
+        message.classList.add("message", isSent ? "sent" : "received");
+        message.innerHTML = `<div class="message-content">${content}</div>`;
+        chatMessages.appendChild(message);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+
+      sendButton.addEventListener("click", () => {
+        if (input.value.trim()) {
+          addMessage(input.value, true);
+          input.value = "";
+        }
+      });
+
+      input.addEventListener("keypress", (e) => {
+        if (e.key === "Enter" && input.value.trim()) {
+          addMessage(input.value, true);
+          input.value = "";
+        }
+      });
+    </script>
+  </body>
+</html>
