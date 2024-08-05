@@ -7,11 +7,19 @@ const socket = io();
 
 function emitInBackend(content){
     addMessage(content, true);
-    socket.emit('user-message',content);
+    socket.emit('user-message',content);   
 };
-socket.on('backend-user-message',(message)=>{
-    addMessage(message, false);
+
+socket.on('backend-user-message',(message,id)=>{
+    if(socket.id !== id){
+        addMessage(message, false);
+    }
+}) 
+
+socket.on('total-user',(count)=>{
+    updateUserCount(count);
 })
+
 
 
 function addMessage(content, isSent) {
@@ -35,3 +43,24 @@ input.addEventListener("keypress", (e) => {
         input.value = "";
     }
 });
+
+const connectionStatus = document.querySelector('.connection-status');
+const userCount = document.querySelector('.user-count');
+
+function status(){
+    setTimeout(() => {
+        connectionStatus.textContent = 'Connecting...';
+        connectionStatus.classList.add('connecting');
+    }, 500);
+}
+
+// connectionStatus.textContent = 'Connected';
+// connectionStatus.classList.remove('connecting');
+
+// connectionStatus.textContent = 'Disconnected. Trying to reconnect...';
+// connectionStatus.classList.add('connecting');
+
+function updateUserCount(count) {
+    userCount.textContent = count;
+  }
+  
