@@ -19,11 +19,11 @@ let onlineUser = [];
 
 io.on('connection', (socket) => {
     onlineUser.push(socket.id);
-    console.log(`Total online users: ${onlineUser.length}`);
+    // console.log(`Total online users: ${onlineUser.length}`);
     io.emit('total-user',onlineUser.length);
     
     socket.on('user-message', (message) => {
-        console.log('Message received: ', message);
+        // console.log('Message received: ', message);
         io.emit('backend-user-message', message,socket.id);
     });
 
