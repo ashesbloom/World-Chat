@@ -86,7 +86,35 @@ body::before {
     }
 }
 
-/* Terminal styling */
+/* terminal style */
+
+@keyframes TurnOn {
+    0% {
+      transform: scale(0);
+      opacity: 0;
+      filter: brightness(0) saturate(0);
+    }
+    20% {
+      transform: scale(0.1);
+      opacity: 0.4;
+      filter: brightness(0.1) saturate(0.4);
+    }
+    50% {
+      transform: scale(0.9);
+      opacity: 0.8;
+      filter: brightness(0.5) saturate(0.8);
+    }
+    80% {
+      transform: scale(1.1);
+      opacity: 1;
+      filter: brightness(1.5) saturate(1.2);
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+      filter: brightness(1) saturate(1);
+    }
+  }
 .terminal {
     width: 90%;
     max-width: 800px;
@@ -100,7 +128,9 @@ body::before {
     overflow: hidden;
     border-radius: 10px;
     z-index: 1;
+    animation: TurnOn 0.5s ease-in-out;
 }
+
 
 .terminal-header {
     background-color: var(--accent-color);
@@ -109,6 +139,7 @@ body::before {
     font-size: 1.5em;
     text-align: center;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    animation: TurnOn 0.6s ease-in-out;
 }
 
 .status-bar {
@@ -118,7 +149,7 @@ body::before {
     background-color: rgba(0, 0, 0, 0.5);
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     padding: 5px 10px;
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 10px;
 }
 
@@ -232,6 +263,7 @@ body::before {
     padding: 10px;
     background-color: rgba(42, 36, 56, 0.9);
     border-top: 1px solid var(--text-color);
+    animation: TurnOn 0.6s ease-in-out;
 }
 
 .input {
