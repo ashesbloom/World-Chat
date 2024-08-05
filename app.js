@@ -9,7 +9,7 @@ const {Server} = require('socket.io');
 
 const server = http.createServer(app);
 const io = new Server(server)
-const PORT = 8000;
+const PORT = process.env.PORT || 8000;
 
 //Middleware
 app.use(express.static(path.resolve('./public')));
