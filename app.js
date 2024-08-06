@@ -4,7 +4,7 @@ const app = express();
 const path = require('path');
 
 const http = require('http');
-const {Server} = require('socket.io');
+const { Server } = require('socket.io');
 
 
 const server = http.createServer(app);
@@ -20,27 +20,27 @@ let onlineUser = [];
 io.on('connection', (socket) => {
     onlineUser.push(socket.id);
     // console.log(`Total online users: ${onlineUser.length}`);
-    io.emit('total-user',onlineUser.length);
-    
+    io.emit('total-user', onlineUser.length);
+
     socket.on('user-message', (message) => {
         // console.log('Message received: ', message);
-        io.emit('backend-user-message', message,socket.id);
+        io.emit('backend-user-message', message, socket.id);
     });
 
     socket.on('disconnect', () => {
         onlineUser = onlineUser.filter(id => id !== socket.id);
-        io.emit('total-user',onlineUser.length);
+        io.emit('total-user', onlineUser.length);
     });
 });
 
 
 //express routes
-app.get('/',(req,res)=>{
+app.get('/', (req, res) => {
     res.sendFile('./public/index.html');
 });
 
 
 //listing to server
-server.listen(PORT,()=>{
+server.listen(PORT, () => {
     console.log('\nServer is live on: ' + PORT);
 })

@@ -5,18 +5,18 @@ const sendButton = document.getElementById('send-button');
 const socket = io();
 
 
-function emitInBackend(content){
+function emitInBackend(content) {
     addMessage(content, true);
-    socket.emit('user-message',content);   
+    socket.emit('user-message', content);
 };
 
-socket.on('backend-user-message',(message,id)=>{
-    if(socket.id !== id){
+socket.on('backend-user-message', (message, id) => {
+    if (socket.id !== id) {
         addMessage(message, false);
     }
-}) 
+})
 
-socket.on('total-user',(count)=>{
+socket.on('total-user', (count) => {
     updateUserCount(count);
 })
 
@@ -47,7 +47,7 @@ input.addEventListener("keypress", (e) => {
 const connectionStatus = document.querySelector('.connection-status');
 const userCount = document.querySelector('.user-count');
 
-function status(){
+function status() {
     setTimeout(() => {
         connectionStatus.textContent = 'Connecting...';
         connectionStatus.classList.add('connecting');
@@ -63,7 +63,7 @@ function status(){
 function updateUserCount(count) {
     userCount.textContent = count;
 }
-  
+
 
 
 

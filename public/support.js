@@ -27,23 +27,23 @@ function updateClock() {
     let hours = now.getHours();
     const minutes = String(now.getMinutes()).padStart(2, '0');
     const seconds = String(now.getSeconds()).padStart(2, '0');
-    
+
     const ampm = hours >= 12 ? 'PM' : 'AM';
     hours = hours % 12;
     hours = hours ? hours : 12; // the hour '0' should be '12'
     hours = String(hours).padStart(2, '0');
-    
+
     const timeString = `${hours}:${minutes}:${seconds} ${ampm}`;
     const clockElement = document.querySelector('.clock');
     clockElement.textContent = timeString;
     clockElement.classList.remove('show');
     void clockElement.offsetWidth; // Trigger reflow to restart the animation
     clockElement.classList.add('show');
-  }
-  
-  // Update clock every second
-  setInterval(updateClock, 1000);
-  
-  // Initial clock update
-  updateClock();
-  
+}
+
+// Update clock every second
+setInterval(updateClock, 1000);
+
+// Initial clock update
+updateClock();
+

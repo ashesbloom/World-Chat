@@ -94,21 +94,25 @@ body::before {
         opacity: 0;
         filter: brightness(0) saturate(0);
     }
+
     20% {
         transform: scale(0.1);
         opacity: 0.4;
         filter: brightness(0.1) saturate(0.4);
     }
+
     50% {
         transform: scale(0.9);
         opacity: 0.8;
         filter: brightness(0.5) saturate(0.8);
     }
+
     80% {
         transform: scale(1.1);
         opacity: 1;
         filter: brightness(1.5) saturate(1.2);
     }
+
     100% {
         transform: scale(1);
         opacity: 1;
@@ -438,6 +442,7 @@ body::before {
 }
 
 @media (max-width: 300px) {
+
     .chat-input button,
     #emoji-button,
     #gif-button {
@@ -455,7 +460,8 @@ body::before {
 }
 
 /* High DPI Device Styles */
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+@media (-webkit-min-device-pixel-ratio: 2),
+(min-resolution: 192dpi) {
     body {
         background-size: 275px 275px, 175px 175px, 125px 125px, 75px 75px;
     }
@@ -463,6 +469,7 @@ body::before {
 
 /* Reduced Motion Preferences */
 @media (prefers-reduced-motion: reduce) {
+
     body,
     body::before,
     .terminal,
@@ -484,8 +491,9 @@ body::before {
     body {
         cursor: none;
     }
+
     .custom-cursor,
-    .cursor-dot{
+    .cursor-dot {
         display: hidden;
     }
 
