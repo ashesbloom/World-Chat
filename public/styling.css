@@ -90,31 +90,32 @@ body::before {
 
 @keyframes TurnOn {
     0% {
-      transform: scale(0);
-      opacity: 0;
-      filter: brightness(0) saturate(0);
+        transform: scale(0);
+        opacity: 0;
+        filter: brightness(0) saturate(0);
     }
     20% {
-      transform: scale(0.1);
-      opacity: 0.4;
-      filter: brightness(0.1) saturate(0.4);
+        transform: scale(0.1);
+        opacity: 0.4;
+        filter: brightness(0.1) saturate(0.4);
     }
     50% {
-      transform: scale(0.9);
-      opacity: 0.8;
-      filter: brightness(0.5) saturate(0.8);
+        transform: scale(0.9);
+        opacity: 0.8;
+        filter: brightness(0.5) saturate(0.8);
     }
     80% {
-      transform: scale(1.1);
-      opacity: 1;
-      filter: brightness(1.5) saturate(1.2);
+        transform: scale(1.1);
+        opacity: 1;
+        filter: brightness(1.5) saturate(1.2);
     }
     100% {
-      transform: scale(1);
-      opacity: 1;
-      filter: brightness(1) saturate(1);
+        transform: scale(1);
+        opacity: 1;
+        filter: brightness(1) saturate(1);
     }
-  }
+}
+
 .terminal {
     width: 90%;
     max-width: 800px;
@@ -387,17 +388,111 @@ body::before {
     transition: transform 0.2s;
 }
 
+/* Responsive Styles */
 @media (max-width: 600px) {
     .terminal {
         width: 95%;
-        height: 70vh;
+        height: 90vh;
         margin: 2.5vh auto;
+    }
+
+    .terminal-header {
+        font-size: 1.2em;
+    }
+
+    .chat-messages {
+        padding: 10px;
+    }
+
+    .message-content {
+        max-width: 90%;
     }
 
     .chat-input button,
     #emoji-button,
     #gif-button {
         font-size: 1em;
-        padding: 5px 10px;
+        padding: 5px 8px;
+    }
+}
+
+@media (max-width: 400px) {
+    .chat-input {
+        flex-wrap: wrap;
+    }
+
+    .chat-input input {
+        flex: 1 1 100%;
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    .chat-input button {
+        flex: 1 1 auto;
+    }
+
+    #emoji-button,
+    #gif-button {
+        flex: 0 1 auto;
+    }
+}
+
+@media (max-width: 300px) {
+    .chat-input button,
+    #emoji-button,
+    #gif-button {
+        padding: 5px 5px;
+        font-size: 0.9em;
+    }
+
+    .terminal-header {
+        font-size: 1em;
+    }
+
+    .status-bar {
+        font-size: 8px;
+    }
+}
+
+/* High DPI Device Styles */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    body {
+        background-size: 275px 275px, 175px 175px, 125px 125px, 75px 75px;
+    }
+}
+
+/* Reduced Motion Preferences */
+@media (prefers-reduced-motion: reduce) {
+    body,
+    body::before,
+    .terminal,
+    .terminal-header,
+    .chat-input,
+    .message,
+    .connection-status.connecting {
+        animation: none;
+    }
+
+    .chat-input button,
+    #gif-results img {
+        transition: none;
+    }
+}
+
+/* Touch Screen Adjustments */
+@media (hover: none) and (pointer: coarse) {
+    body {
+        cursor: none;
+    }
+    .custom-cursor,
+    .cursor-dot{
+        display: hidden;
+    }
+
+    .custom-cursor,
+    .cursor-dot,
+    .chat-input button,
+    .chat-input input {
+        cursor: none;
     }
 }
