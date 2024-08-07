@@ -1,9 +1,20 @@
+const socket = io();
 
 const chatMessages = document.querySelector(".chat-messages");
 const input = document.querySelector(".chat-input input");
 const sendButton = document.getElementById('send-button');
-const socket = io();
 
+const connectionStatus = document.querySelector('.connection-status');
+const userCount = document.querySelector('.user-count');
+
+socket.on('connect', () => {
+    setTimeout(() => {
+        if (socket.connected) {
+            connectionStatus.textContent = 'Connected';
+            connectionStatus.classList.remove('connecting');
+        }
+    }, 1500);
+});
 
 function emitInBackend(content) {
     addMessage(content, true);
@@ -44,26 +55,22 @@ input.addEventListener("keypress", (e) => {
     }
 });
 
-const connectionStatus = document.querySelector('.connection-status');
-const userCount = document.querySelector('.user-count');
-
-function status() {
-    setTimeout(() => {
-        connectionStatus.textContent = 'Connecting...';
-        connectionStatus.classList.add('connecting');
-    }, 500);
-}
-
-// connectionStatus.textContent = 'Connected';
-// connectionStatus.classList.remove('connecting');
-
-// connectionStatus.textContent = 'Disconnected. Trying to reconnect...';
-// connectionStatus.classList.add('connecting');
-
 function updateUserCount(count) {
     userCount.textContent = count;
 }
 
+const disconnectBtn = document.getElementById('disconnect-button');
+
+disconnectBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (socket.connected) {
+        connectionStatus.textContent = 'Disconnected';
+        connectionStatus.classList.add('connecting');
+        socket.disconnect();
+    } else {
+        socket.connect();
+    }
+});
 
 
 

@@ -8,7 +8,9 @@ const { Server } = require('socket.io');
 
 
 const server = http.createServer(app);
-const io = new Server(server)
+const io = new Server(server, {
+    connectionStateRecovery: {}
+});
 const PORT = process.env.PORT || 8000;
 
 //Middleware
@@ -19,7 +21,7 @@ let onlineUser = [];
 
 io.on('connection', (socket) => {
     onlineUser.push(socket.id);
-    // console.log(`Total online users: ${onlineUser.length}`);
+    console.log(`Total online users: ${onlineUser.length}`);
     io.emit('total-user', onlineUser.length);
 
     socket.on('user-message', (message) => {
@@ -30,6 +32,7 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
         onlineUser = onlineUser.filter(id => id !== socket.id);
         io.emit('total-user', onlineUser.length);
+        console.log('disconnected');
     });
 });
 
