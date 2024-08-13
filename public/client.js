@@ -8,12 +8,14 @@ const connectionStatus = document.querySelector('.connection-status');
 const userCount = document.querySelector('.user-count');
 
 socket.on('connect', () => {
+    connectionStatus.textContent = 'Connecting...';
+    connectionStatus.classList.add('connecting');
     setTimeout(() => {
         if (socket.connected) {
             connectionStatus.textContent = 'Connected';
             connectionStatus.classList.remove('connecting');
         }
-    }, 1500);
+    }, 1300);
 });
 
 function emitInBackend(content) {
